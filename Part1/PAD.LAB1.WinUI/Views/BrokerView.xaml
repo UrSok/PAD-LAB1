@@ -1,0 +1,43 @@
+﻿<views:MvxWpfView  
+        xmlns:views="clr-namespace:MvvmCross.Platforms.Wpf.Views;assembly=MvvmCross.Platforms.Wpf"
+        xmlns:mvx="clr-namespace:MvvmCross.Platforms.Wpf.Binding;assembly=MvvmCross.Platforms.Wpf" 
+        x:Class="PAD.LAB1.WinUI.Views.BrokerView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:local="clr-namespace:PAD.LAB1.WinUI.Views"
+        mc:Ignorable="d" 
+        d:DesignHeight="450" d:DesignWidth="800" Margin="10">
+    <Grid>
+        <StackPanel>
+            <TextBlock Text="Connections" FontSize="20"/>
+            <StackPanel>
+                <DataGrid ItemsSource="{Binding Connections}" AutoGenerateColumns="True" MaxHeight="150" IsReadOnly="True" VerticalScrollBarVisibility="Auto"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <TextBlock Text="Total: " />
+                    <TextBlock Text="{Binding TotalConnections, FallbackValue=0}" />
+                </StackPanel>
+            </StackPanel>
+            <Separator Height="1"/>
+
+            <TextBlock Text="Rooms" FontSize="20"/>
+            <StackPanel>
+                <DataGrid ItemsSource="{Binding Rooms}" AutoGenerateColumns="True" MaxHeight="150" IsReadOnly="True" VerticalScrollBarVisibility="Auto"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <TextBlock Text="Total: " />
+                    <TextBlock Text="{Binding TotalRooms, FallbackValue=0}" />
+                </StackPanel>
+            </StackPanel>
+            <Separator Height="1"/>
+            
+            <TextBlock Text="Info" FontSize="20"/>
+            <StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Broker Address: " />
+                    <TextBlock Text="{Binding BrokerAddress, FallbackValue='128.0.0.9:2000'}" />
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>   
+    </Grid>
+</views:MvxWpfView>

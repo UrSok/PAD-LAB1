@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\PAD.LAB1.Broker\Utils\SharedMapperProfile.cs" Link="Utils\SharedMapperProfile.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="Google.Protobuf" Version="3.13.0" />
+    <PackageReference Include="Grpc.Net.ClientFactory" Version="2.32.0" />
+    <PackageReference Include="Grpc.Tools" Version="2.32.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="MvvmCross" Version="8.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Protobuf Include="..\PAD.LAB1.Broker\Protos\chat.proto" GrpcServices="Client">
+      <Link>Protos\chat.proto</Link>
+    </Protobuf>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PAD.LAB1.Shared\PAD.LAB1.Shared.csproj" />
+  </ItemGroup>
+
+</Project>

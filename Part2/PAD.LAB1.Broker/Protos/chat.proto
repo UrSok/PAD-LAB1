@@ -1,0 +1,101 @@
+syntax = "proto3";
+// csharp_namespace este ceea ce va trebui sa se importeze ca sa putem accesa
+option csharp_namespace = "GrpcAgent";
+
+package chat;
+// importarea librariei
+import "google/protobuf/timestamp.proto";
+
+//creaza o clasa pe care noi o vom rescrie si vom folosi metodele
+service Chat {
+	rpc CreateRoom(CreateRoomRequest) returns (CreateRoomReply); 
+	rpc JoinRoom(JoinRoomRequest) returns (JoinRoomReply);
+	rpc SendMessage(MessageRequest) returns (MessageReply);
+	rpc RoomStream(StreamRequest) returns (stream RoomStreamReply); // room info channel
+	rpc ChatStream(StreamRequest) returns (stream ChatStreamReply); // chatting channel
+}
+
+
+message CreateRoomRequest {
+	string memberName = 1;
+}
+message CreateRoomReply {
+	ReplyInfo replyInfo = 1;
+	Room room = 2;
+	Member member = 3;
+}
+
+message JoinRoomRequest {
+	string memberName = 1;
+	string roomCode = 2;
+}
+
+message JoinRoomReply {
+	ReplyInfo replyInfo = 1;
+	Room room = 2;
+	Member member = 3;
+	repeated MessageInfo messagesInfo = 4; 
+}
+
+message MessageRequest {
+	string roomCode = 1;
+	string memberId = 2;
+	string messageText = 3;
+}
+
+message MessageReply {
+	ReplyInfo replyInfo = 1;
+}
+
+// User and Chat stream START
+message StreamRequest {
+	string memberId = 1;
+	string roomCode = 2;
+}
+
+message RoomStreamReply {
+	ReplyInfo replyInfo = 1;
+	int32 membersCount = 2;
+}
+
+message ChatStreamReply {
+	ReplyInfo replyInfo = 1;
+	MessageInfo messageInfo = 2;
+}
+// User and Chat stream END
+
+
+/* Common */
+message Room {
+	string code = 1;
+	int32 membersCount = 2;
+}
+
+message Member {
+	string id = 1;
+	string hexColor = 2;
+	string name = 3;
+}
+
+message Message {
+	google.protobuf.Timestamp dateTime = 1;
+	string text = 2;
+}
+
+message MessageInfo {
+	Member member = 1;
+	Message message = 2;
+}
+
+// Reply info
+enum ReplyStatus {
+	Unknown = 0;
+	Success = 1;
+	Failed = 2;
+}
+
+message ReplyInfo {
+	ReplyStatus status = 1;
+	string reason = 2;
+}
+
